@@ -15,7 +15,9 @@ public class FileSystemWriter {
     }
 
     public void setLines(List<String> input) {
-        Path pathFile = Paths.get("src//main//resources//" + filePath);
+//        Path pathFile = Paths.get("src//main//resources//" + filePath);
+
+        Path pathFile = Paths.get(filePath);
 
         try {
             Files.deleteIfExists(pathFile);

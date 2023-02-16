@@ -2,6 +2,7 @@ package ru.testproject.readers;
 
 import org.springframework.stereotype.Service;
 import ru.testproject.readers.exception.ErrorRowCatcher;
+import ru.testproject.readers.exception.SpaceFoundException;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -55,6 +56,9 @@ public class PreparingArrays {
                     for (int j = 0; j < arrayFromFile.size(); j++) {
                         String[] split = arrayFromFile.get(j).split("");
                         for (String ch : split) {
+                            if (ch.equals(" ")) {
+                                throw new SpaceFoundException("Spaces are prohibited for using");
+                            }
                             result.add(ch);
                         }
                     }
