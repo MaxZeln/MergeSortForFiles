@@ -3,6 +3,7 @@ package ru.testproject.readers;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.ConfigurableApplicationContext;
+import ru.testproject.readers.exception.SpaceFoundException;
 
 @SpringBootApplication
 public class SortingApp {
@@ -27,6 +28,9 @@ public class SortingApp {
 
         } catch (NumberFormatException e) {
             System.out.println("Illegal format of data for sorting Integer values, please, check files");
+        }
+        catch (SpaceFoundException e) {
+            System.out.println(e.getMessage() + " , space detected in file, please remove spaces");
         }
     }
 
