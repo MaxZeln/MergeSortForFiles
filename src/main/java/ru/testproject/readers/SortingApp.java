@@ -2,43 +2,32 @@ package ru.testproject.readers;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-
-import java.lang.reflect.Array;
-import java.util.ArrayList;
+import org.springframework.context.ConfigurableApplicationContext;
 
 @SpringBootApplication
 public class SortingApp {
 
+
     public static void main(String[] args) throws Exception {
 
-        SpringApplication.run(SortingApp.class, args);
+        ConfigurableApplicationContext context = SpringApplication.run(SortingApp.class, args);
 
-        String[] inputArgs;
+        SortingMultipartFiles main = context.getBean(SortingMultipartFiles.class);
 
-        switch (args[0]) {
-
-            case ("-a"), ("-d") -> {
-                inputArgs = new String[args.length];
-                inputArgs[0] = args[0];
-                inputArgs[1] = args[1];
-                for (int i = 2; i < args.length; i++) {
-                    inputArgs[i] = args[i];
+        ParsingArgs parsingArgs = context.getBean(ParsingArgs.class);
+        try {
+            switch (parsingArgs.getArgs()[1]) {
+                case ("-i") -> {
+                    main.sortingIntegerFiles();
+                }
+                case ("-s") -> {
+                    main.sortingStringFiles();
                 }
             }
-            default -> {
-                inputArgs = new String[args.length + 1];
-                inputArgs[0] = "-a";
-                inputArgs[1] = args[0];
-                for (int i = 1; i < args.length; i++) {
-                    inputArgs[i + 1] = args[i];
-                }
-            }
-        }
-        System.out.println("Входящие параметры");
-        for (String input : inputArgs) {
 
-            System.out.println(input);
+        } catch (NumberFormatException e) {
+            System.out.println("Illegal format of data for sorting Integer values, please, check files");
         }
-
     }
+
 }
